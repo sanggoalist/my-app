@@ -1,0 +1,9 @@
+.example-container {
+    display: block;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 500px;
+  }
+  

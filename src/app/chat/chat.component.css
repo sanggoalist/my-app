@@ -1,0 +1,7 @@
+.left-chat-card{
+    width: 300px;
+}
+.left-chat-list-item:hover{
+    cursor: pointer;
+    background-color: aqua;
+}

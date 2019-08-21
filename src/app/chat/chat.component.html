@@ -1,0 +1,11 @@
+<mat-card class="left-chat-card">
+    <mat-list class="left-chat-list">
+        <mat-list-item class="left-chat-list-item" *ngFor="let message of messages">
+          <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+          <h3 matLine> {{message.name}} </h3>
+          <p matLine>
+            <span> {{message.age}} </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+</mat-card>
