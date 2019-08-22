@@ -8,14 +8,19 @@ import { SpinnerOverlayService } from '../service/spinner-overlay.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  messages: any[] =[]
+  persons: any[] =[];
+  messages: any[] = [
+    {id: 1, message: "This is my first test"},
+    {id: 1, message:  "Yes sure, why not?"},
+    {id: 2, message:  "OK I nknow"}
+]
   constructor(public databaseService: DatabaseService,
     private  spinnerService: SpinnerOverlayService) { }
 
   ngOnInit() {
     this.spinnerService.show();
     this.databaseService.getData().subscribe(res =>{
-      this.messages = res;
+      this.persons = res;
       this.spinnerService.hide();
     });
   }

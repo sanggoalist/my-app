@@ -1,11 +1,24 @@
-<mat-card class="left-chat-card">
+<div class="chat-card">
+    <mat-card class="left-chat-card">
+      <mat-list class="left-chat-list">
+          <mat-list-item class="left-chat-list-item-user" *ngFor="let person of persons">
+            <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+            <h3 matLine> {{person.name}} </h3>
+            <p matLine>
+              <span> {{person.age}} </span>
+            </p>
+          </mat-list-item>
+        </mat-list>
+  </mat-card>
+  <mat-card class="right-chat-card">
     <mat-list class="left-chat-list">
-        <mat-list-item class="left-chat-list-item" *ngFor="let message of messages">
+        <mat-list-item  *ngFor="let message of messages" class="left-chat-list-item-user">
           <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
-          <h3 matLine> {{message.name}} </h3>
-          <p matLine>
-            <span> {{message.age}} </span>
-          </p>
+          <div class="chat-item">
+               {{message.message}} 
+          </div>
         </mat-list-item>
       </mat-list>
-</mat-card>
+  </mat-card>
+</div>
+
