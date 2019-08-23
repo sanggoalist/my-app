@@ -11,14 +11,27 @@
         </mat-list>
   </mat-card>
   <mat-card class="right-chat-card">
-    <mat-list class="left-chat-list">
-        <mat-list-item  *ngFor="let message of messages" class="left-chat-list-item-user">
-          <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
-          <div class="chat-item">
-               {{message.message}} 
+    <mat-list class="right-chat-list">
+      <div *ngFor="let message of messages" >
+          <div class="item-list">
+            <div class="item-{{(message.id == 1 ? 'user': 'friend')}}">
+                <div class="item-ripper"></div>
+                <img *ngIf ="message.id == 1" class="item-image" src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+                <div class="chat-item-{{(message.id == 1 ? 'user': 'friend')}}">
+                     {{message.message}} 
+                </div>
+                <img *ngIf ="message.id != 1" class="item-image" src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+            </div>
           </div>
-        </mat-list-item>
+        </div>
+
       </mat-list>
+      <mat-card>
+          <div>
+            
+          </div>
+          <textarea placeholder="Leave a comment"></textarea>
+      </mat-card>
   </mat-card>
 </div>
 
