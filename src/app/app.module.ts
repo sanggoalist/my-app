@@ -33,6 +33,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { environment } from '../environments/environment';
 import { ChatComponent } from './chat/chat.component';
 import { DatabaseService } from './database.service';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { DatabaseService } from './database.service';
     MatMenuModule,
     MatTableModule,
     MatTabsModule,
+    MatIconModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }

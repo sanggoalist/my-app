@@ -11,7 +11,7 @@
 .left-chat-card{
     display: inline-block;
     background-color: rgba(52, 152, 219, 1);
-    height: 428px;
+    height: 451px;
     width: 30%;
 }
 .right-chat-card{
@@ -20,14 +20,15 @@
     width: 60%;
 }
 .left-chat-list{
-    max-height: 400px;
+    max-height: 423px;
     height: 700px;
-    overflow: auto;
+    overflow: scroll;
 }
 .right-chat-list{
     max-height: 370px;
     height: 700px;
     overflow: auto;
+    margin-bottom: 10px;
 }
 .chat-item-user{
     margin-top: auto;
@@ -95,4 +96,39 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+}
+.comment-group{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    background-color: antiquewhite;
+    height: 50px;
+    border-radius: 5px;
+
+}
+.comment-area{
+    width: calc(100% - 56px);
+    max-height: 50px;
+    overflow: auto;
+    margin-left: 10px;
+    //     padding-top: 10px;
+    // padding-bottom: 10px;
+}
+.comment-button{
+    display: inline;
+    margin: 0px;
+    background-color: antiquewhite;
+    border: none;
+    align-content: center;
+    align-items: center;
+}
+.comment-button:hover{
+    .send-icon{
+        transform: rotate(-45deg);
+    }    
+}
+.chat-comment-card{
+    background-color: rgba(82, 179, 217, 0.6);
 }
