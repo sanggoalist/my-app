@@ -11,7 +11,7 @@
         </mat-list>
   </mat-card>
   <mat-card class="right-chat-card">
-    <mat-list class="right-chat-list">
+    <mat-list class="right-chat-list" #scrollMe infiniteScroll>
       <div *ngFor="let message of messages" >
           <div class="item-list">
             <div class="item-{{(message.id == 1 ? 'user': 'friend')}}">
@@ -26,11 +26,14 @@
         </div>
 
       </mat-list>
-      <mat-card>
-          <div>
-            
+      <mat-card class="chat-comment-card">
+          <div class="comment-group">
+            <textarea class="comment-area" placeholder="Leave a comment"></textarea> 
+            <div class="comment-button" (click) ="handleClick()"><span>
+                <mat-icon class="send-icon">send</mat-icon>
+            </span></div>           
           </div>
-          <textarea placeholder="Leave a comment"></textarea>
+          
       </mat-card>
   </mat-card>
 </div>
