@@ -34,7 +34,9 @@ import { environment } from '../environments/environment';
 import { ChatComponent } from './chat/chat.component';
 import { DatabaseService } from './database.service';
 import {MatIconModule} from '@angular/material/icon';
-
+import { ChatPageComponent } from './chat-page/chat-page.component';
+import { ListFriendComponent } from './list-friend/list-friend.component';
+import { ListChatComponent } from './list-chat/list-chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,10 @@ import {MatIconModule} from '@angular/material/icon';
     BasicInfoComponent,
     SpinnerOverlayComponent,
     SpinnerComponent,
-    ChatComponent
+    ChatComponent,
+    ChatPageComponent,
+    ListFriendComponent,
+    ListChatComponent
   ],
   imports: [
     BrowserModule,

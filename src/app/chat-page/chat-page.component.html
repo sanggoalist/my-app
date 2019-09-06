@@ -1,0 +1,6 @@
+<div class="chat-card">
+    <app-list-friend [show] = "show" [userList] = "userList" (cl) = "onCl($event)"></app-list-friend>
+    <mat-card class="right-chat-card">
+        <app-list-chat *ngIf = "show" [friend] = "friend" [userId] = "userId"></app-list-chat>
+    </mat-card>
+</div>

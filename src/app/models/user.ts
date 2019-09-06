@@ -4,7 +4,8 @@ export class User{
     user_id?: number;
     nickname?: string;
     forbidden?: number;
-    message?: Message;
+    message?: Array<Message>;
     role?: number;
+    friends?: Array<Number>;
     
 }
