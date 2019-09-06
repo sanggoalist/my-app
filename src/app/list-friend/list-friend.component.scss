@@ -1,0 +1,29 @@
+.left-chat-card{
+    display: inline-block;
+    background-color: rgba(52, 152, 219, 1);
+    height: 580px;
+    width: 30%;
+    padding: 10px;
+    position: relative;
+}
+.left-chat-list{
+    // max-height: 423px;
+    max-height: 560px;
+    overflow: auto;
+}
+// .left-chat-list-show{
+//     // max-height: 423px;
+//     height: 680px;
+//     overflow: auto;
+// }
+.left-chat-card-show{
+    display: inline-block;
+    background-color: rgba(52, 152, 219, 1);
+    height: 562px;
+    width: 30%;
+    padding: 10px;
+}
+.left-chat-list-item:hover{
+    background-color: red;
+    cursor: pointer;
+}

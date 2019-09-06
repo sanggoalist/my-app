@@ -1,0 +1,20 @@
+<mat-card class= "left-chat-card">
+    <mat-list class="left-chat-list">
+        <mat-list-item class="left-chat-list-item" *ngFor="let user of users;" (click) = "clickOnFriend($event, user.user_id)">
+            <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+                <h3 matLine> {{user.nickname}} </h3>
+                <p matLine>
+                    <span> {{user.user_id}} </span>
+                </p>
+        </mat-list-item>
+    </mat-list>
+    <!-- <mat-list class="left-chat-list-show" *ngIf = "show">
+        <mat-list-item class="left-chat-list-item" *ngFor="let user of users;" (click) = "clickOnFriend($event, user.user_id)">
+            <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+                <h3 matLine> {{user.nickname}} </h3>
+                <p matLine>
+                    <span> {{user.user_id}} </span>
+                </p>
+        </mat-list-item>
+    </mat-list> -->
+</mat-card>  

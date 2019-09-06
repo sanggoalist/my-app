@@ -1,0 +1,18 @@
+.chat-card{
+    position: fixed;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0); 
+    -moz-transform: translate3d(-50%, -50%, 0);  
+    transform: translate3d(-50%, -50%, 0);
+    height: 600px; 
+
+}
+.right-chat-card{
+    display: inline-block;
+    background-color: rgba(82, 179, 217, 0.6);
+    width: 60%;
+    height: 568px;
+    position: fixed;
+}

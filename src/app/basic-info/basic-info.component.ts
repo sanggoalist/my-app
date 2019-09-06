@@ -20,7 +20,7 @@ export class BasicInfoComponent implements OnInit {
     private  spinnerService: SpinnerOverlayService,
     private db: AngularFireDatabase) { 
     this.spinnerService.show();
-    this.databaseService.getData().subscribe(res =>{
+    this.databaseService.getData("persons").subscribe(res =>{
       this.peoples = res;
       this.spinnerService.hide();
     });
