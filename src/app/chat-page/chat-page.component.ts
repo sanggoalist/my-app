@@ -58,7 +58,7 @@ export class ChatPageComponent implements OnInit, OnChanges {
   openDialog(mes: string): void {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
       width: '250px',
-      data: {code: 0, name: mes}
+      data: {code: 1, name: mes}
     });
 
     dialogRef.afterClosed().subscribe(result => {

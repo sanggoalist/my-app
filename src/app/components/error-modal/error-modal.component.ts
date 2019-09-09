@@ -8,10 +8,15 @@ import { DialogData } from 'src/app/models/dialogData';
   styleUrls: ['./error-modal.component.css']
 })
 export class ErrorModalComponent implements OnInit {
-
+  title = '';
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
+    if(this.data.code == 0){
+      this.title = 'Login Failue!';
+    } else if (this.data.code == 1){
+      this.title = 'Login Session is Expired';
+    }
   }
 
 }

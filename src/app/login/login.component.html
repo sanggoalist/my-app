@@ -10,11 +10,13 @@
         <mat-card-content>
             <form [formGroup]="submitForm" class="example-container">
                 <mat-form-field>
-                  <input formControlName="nickname" matInput placeholder="Nickname">
+                  <input formControlName="nickname" matInput placeholder="Nickname" required>
+                  <mat-error *ngIf="submitted && submitForm.controls.nickname.errors">Nickname is required</mat-error>
                 </mat-form-field>
               
                 <mat-form-field>
-                  <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                  <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required>
+                  <mat-error *ngIf="submitted && submitForm.controls.password.errors">Password is required</mat-error>
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
