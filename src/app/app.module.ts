@@ -37,6 +37,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { ListFriendComponent } from './list-friend/list-friend.component';
 import { ListChatComponent } from './list-chat/list-chat.component';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +52,8 @@ import { ListChatComponent } from './list-chat/list-chat.component';
     ChatComponent,
     ChatPageComponent,
     ListFriendComponent,
-    ListChatComponent
+    ListChatComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -74,13 +78,14 @@ import { ListChatComponent } from './list-chat/list-chat.component';
     MatTableModule,
     MatTabsModule,
     MatIconModule,
+    MatDialogModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [UserService, DatabaseService],
+  providers: [UserService, DatabaseService, CookieService],
   bootstrap: [AppComponent],
-  entryComponents: [SpinnerOverlayComponent]
+  entryComponents: [SpinnerOverlayComponent, ErrorModalComponent]
 })
 export class AppModule { }

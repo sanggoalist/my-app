@@ -1,6 +1,6 @@
 <div class="login-page">
     <div class="progress-holder">
-        <mat-progress-bar *ngIf = "isClick" class="progress-login-bar" mode="query"></mat-progress-bar>
+        <mat-progress-bar *ngIf = "isProcess" class="progress-login-bar" mode="query"></mat-progress-bar>
     </div>
     <mat-card class="login-card">
         <mat-card-title-group>
@@ -8,24 +8,21 @@
             <mat-card-subtitle>Please login to my page</mat-card-subtitle>
         </mat-card-title-group>
         <mat-card-content>
-            <div class="example-container">
+            <form [formGroup]="submitForm" class="example-container">
                 <mat-form-field>
-                  <input matInput placeholder="Input">
+                  <input formControlName="nickname" matInput placeholder="Nickname">
                 </mat-form-field>
               
                 <mat-form-field>
-                  <textarea matInput placeholder="Textarea"></textarea>
+                  <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                 </mat-form-field>
-              
-                <mat-form-field>
-                  <mat-select placeholder="Select">
-                    <mat-option value="option">Option</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+              </form>
         </mat-card-content>
         <mat-card-actions>
-          <button (click)="handleClick()" mat-button>Click me!</button>
+          <button (click)="submitedHandle()" mat-button>Click me!</button>
         </mat-card-actions>
         <mat-card-footer>
           <mat-card-subtitle>Please login to my page</mat-card-subtitle>
