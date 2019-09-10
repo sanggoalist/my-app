@@ -15,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {
   private isProcess = false;
   private isCorrect = false;
+  submitted = false;
   hide = true;
   submitForm: FormGroup;
   constructor(private route: ActivatedRoute, private router: Router, 
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
   submitedHandle(){
     // this.isClick = true;
+    this.submitted = true;
     console.log(this.submitForm)
     if (this.submitForm.invalid){
       return;
