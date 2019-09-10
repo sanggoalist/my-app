@@ -13,16 +13,17 @@ export class ListChatComponent implements OnInit, OnChanges, AfterViewChecked {
   @ViewChild('scrollMe', {read: ElementRef, static: true}) private myScrollContainer: ElementRef;
   forM = 'YYYY-MM-DD HH:mm:ss';
   messagess: Message[] = [];
-
+  userId = null;
   @Input() friend: User;
-  @Input() userId: number;
+  @Input() user_id: number;
   text = "";
   id = null;
   constructor(public databaseService: DatabaseService) { }
 
   ngOnInit() {
-    if (this.friend.message != null){
-      this.messagess = this.friend.message;
+
+    if (this.friend.message[this.user_id.toString()] != null){
+      this.messagess = this.friend.message[this.user_id.toString()];
     }
 
     // this.databaseService.getData<Message>("users/"+this.id+"/message").subscribe(res =>{
@@ -30,8 +31,10 @@ export class ListChatComponent implements OnInit, OnChanges, AfterViewChecked {
     // })
   }
   ngOnChanges(event){
-    this.messagess = event.friend.currentValue.message;
-    this.id = event.friend.currentValue.user_id;
+    if (event.friend.currentValue.message[this.user_id.toString()] == ""){
+      this.messagess = [];
+    }else
+    this.messagess = event.friend.currentValue.message[this.user_id.toString()];
   }
 
   ngAfterViewChecked() {        
@@ -46,18 +49,27 @@ export class ListChatComponent implements OnInit, OnChanges, AfterViewChecked {
     mes.message = this.text;
     this.text = '';
     mes.send_at = moment(moment.now()).format(this.forM).toString();
-    mes.user_id = this.userId;
+    mes.user_id = this.user_id;
     this.messagess = (this.messagess === undefined)?[]:this.messagess;
     this.messagess.push(mes)
-    this.databaseService.updateMessage("users/"+this.id+"", this.messagess).then(res =>{
+    Promise.all([
+      this.databaseService.sendMessage(this.user_id, this.friend.user_id, this.messagess),
+      this.databaseService.sendTargetMessage(this.user_id, this.friend.user_id, this.messagess)
+    ]).then(res =>{
+      
+    }).catch((error) =>{
 
-    });
+    })
+    // this.databaseService.updateMessage("users/"+this.id+"", this.messagess).then(res =>{
+
+    // });
   }
   onEnterKeyPress(event: any) {
     if (event.key === 'Enter') {
       this.handleClick();
     }
   }
+
   scrollToBottom(): void {
     try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;

@@ -39,6 +39,22 @@ export class DatabaseService {
   updateMessage(data: string, mes: Message[]) {
     return this.db.database.ref(data).child("message").set(mes);
   }
+  sendMessage(userId: number, targetUserId: number, mes: Message[]){
+    var ref = this.db.database.ref()
+                                    .child("users")
+                                      .child(userId.toString())
+                                        .child("message")
+                                          .child(targetUserId.toString());
+     return ref.set(mes);                                   
+  }
+  sendTargetMessage(userId: number, targetUserId: number, mes: Message[]){
+    var ref = this.db.database.ref()
+                                    .child("users")
+                                      .child(targetUserId.toString())
+                                        .child("message")
+                                          .child(userId.toString());
+     return ref.set(mes);                                   
+  }
   // createUser(user: User): void {
   //   user.message.message_id = this.db.createPushId();
   //   this.db.list<User>("users").push(user).then(res =>{
