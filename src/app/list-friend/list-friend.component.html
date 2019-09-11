@@ -8,6 +8,14 @@
                 </p>
         </mat-list-item>
     </mat-list>
+    <div class="left-footer">
+        <div style="height: 70%">
+
+        </div>
+        <div class="logout-button">
+            <button class="logout-btn" mat-raised-button color="primary" (click)="logoutHandle()" mat-button>Logout</button>
+        </div>
+    </div>
     <!-- <mat-list class="left-chat-list-show" *ngIf = "show">
         <mat-list-item class="left-chat-list-item" *ngFor="let user of users;" (click) = "clickOnFriend($event, user.user_id)">
             <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">

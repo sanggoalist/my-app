@@ -9,8 +9,21 @@
 }
 .left-chat-list{
     // max-height: 423px;
-    max-height: 560px;
+    max-height: 70%;
+    height: 70%;
     overflow: auto;
+}
+.left-footer{
+    height: calc(30% - 20px);
+    padding: 10px;
+}
+.logout-button{
+    height: calc(30% - 20px);
+    text-align: center;
+    padding: 5px;
+    .logout-btn{
+        // height: calc(100%- 20px);
+    }
 }
 // .left-chat-list-show{
 //     // max-height: 423px;

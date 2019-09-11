@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
                 this.cookieService.delete("sang-app-chat");
               }
                 var ob = {user_id: user.user_id}
-                this.cookieService.set("sang-app-chat", JSON.stringify(ob), 4, '/');
+                this.cookieService.set("sang-app-chat", JSON.stringify(ob), 1, '/');
               this.router.navigate(['/chat-page']);
             }
             else

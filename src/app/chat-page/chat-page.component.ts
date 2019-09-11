@@ -31,7 +31,7 @@ export class ChatPageComponent implements OnInit, OnChanges {
       this.openDialog("Please login again!");
       this.dialog.afterAllClosed.subscribe(res =>{
         this.spinnerService.hide();
-        this.router.navigate([""]);
+        this.router.navigate(["/login"]);
       })
       return;
     }
