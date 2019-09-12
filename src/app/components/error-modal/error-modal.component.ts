@@ -16,6 +16,8 @@ export class ErrorModalComponent implements OnInit {
       this.title = 'Login Failue!';
     } else if (this.data.code == 1){
       this.title = 'Login Session is Expired';
+    } else if (this.data.code == 2){
+      this.title = 'Nickname is used';
     }
   }
 

@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -45,19 +46,21 @@ export class LoginComponent implements OnInit {
     this.isProcess = true;
     this.database.login(this.submitForm.value.nickname).then((res) =>{
       this.isProcess = false;
-      // console.log(res.val())
         if (res.val() == null){
           this.openDialog("Wrong Nickname or Password");
           return;
         }
         else{
           let user = null;
-          res.val().forEach(element => {
-            if (element){
-             user =  <User>element;
-            }
-          });
-          
+          if (res.val().length == undefined){
+            user =  <User>res.val();
+          }else{
+            res.val().forEach(element => {
+              if (element){
+               user =  <User>element;
+              }
+            });
+          }
           if (user != null){
             if (this.checkPassword(user, this.submitForm.value.password)){
               if (this.cookieService.check("sang-app-chat")){
