@@ -41,6 +41,7 @@ export class ChatPageComponent implements OnInit, OnChanges {
         if (this.userList.length !== 0){
           this.userList = [];
         }
+        console.log(res)
         res.forEach(element => {
           if (element.friends.includes(user.user_id)){
             this.userList.push(element)

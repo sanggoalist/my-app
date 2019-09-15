@@ -19,18 +19,23 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   hide = true;
   submitForm: FormGroup;
-
+  index: number = null;
+  isProcess = false;
   constructor(private route: ActivatedRoute, private router: Router, 
     private formBuilder: FormBuilder, private database: DatabaseService,
     public dialog: MatDialog,
     private cookieService: CookieService) { }
 
   ngOnInit() {
+    this.database.getNextIndex().once("value", res =>{
+        this.index = res.numChildren();
+    });
     this.submitForm = this.formBuilder.group({
       nickname: ['',Validators.required],
       password: ['',[Validators.required, Validators.minLength(6)]],
       repassword: ['',[Validators.required]]
     });
+
   }
   submitedHandle(){
     // this.isClick = true;
@@ -39,13 +44,11 @@ export class RegisterComponent implements OnInit {
     if (this.submitForm.invalid){
       return;
     }
+    this.isProcess = true;
     this.database.login(this.submitForm.value.nickname).then((res) =>{
         if (res.val() != null){
-          this.openDialog('Nickname has been taken. Please use another nickname');
+          this.openDialog('Nickname has been taken. Please use another nickname', 2);
         }else{
-          var number = 0;
-          this.database.getData("users").subscribe(res =>{
-            var users: User[] = res;
             var nickname = this.submitForm.value.nickname;
             var password = this.submitForm.value.password;
             var user: User = new User();
@@ -58,20 +61,18 @@ export class RegisterComponent implements OnInit {
             var m = moment.now();
             var userId = moment(m).unix();
             user.user_id = userId;
-            users.push(user);
-            console.log(users)
-            this.database.createUser(users).then(res =>{
-              if(res){
-                this.router.navigate(["/login"]);
-                return;
-              }
+            this.database.createUser(user).then(res =>{
+              this.isProcess = false;
+                this.openDialog('Success!!! The user is has been created!', 3);
+                this.dialog.afterAllClosed.subscribe(res =>{
+                  this.router.navigate(["/login"]);
+                })
             }).catch(err =>{
               if(err){
-                this.openDialog('There is something when wrong');
+                this.openDialog('There is something when wrong', 2);
                 return;
               }
             });
-          })
         }
     })
   }
@@ -83,10 +84,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  openDialog(mes: string): void {
+  openDialog(mes: string, type: number): void {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
       width: '250px',
-      data: {code: 2, name: mes}
+      data: {code: type, name: mes}
     });
 
     dialogRef.afterClosed().subscribe(result => {

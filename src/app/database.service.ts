@@ -61,8 +61,14 @@ export class DatabaseService {
   //   var ref = this.db.database.ref().child("users");
   //   return ref.orderByChild("nickname").equalTo(nickname).on("")
   // }
-  createUser(users: User[]): Promise<any> {
-     var ref = this.db.database.ref().child("users");
-     return ref.update(users);
+  createUser(user: User): Promise<any> {
+    const m = moment.now();
+    const userId = moment(m).unix().toString();
+    user.user_id = Number.parseInt(userId);
+     var ref = this.db.database.ref().child("users").child(userId);
+     return ref.set(user);
+  }
+  getNextIndex() {
+    return this.db.database.ref().child("users");
   }
 }
