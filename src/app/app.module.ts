@@ -40,6 +40,7 @@ import { ListChatComponent } from './list-chat/list-chat.component';
 import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,8 @@ import { CookieService } from 'ngx-cookie-service';
     ChatPageComponent,
     ListFriendComponent,
     ListChatComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

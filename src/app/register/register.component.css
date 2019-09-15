@@ -1,0 +1,30 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  .progress-holder{
+    height: 4px;
+  }
+  .login-card{
+    width: 500px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+  .login-page{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0); 
+    -moz-transform: translate3d(-50%, -50%, 0);  
+    transform: translate3d(-50%, -50%, 0); 
+  }
+  .progress-login-bar{
+    height: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  

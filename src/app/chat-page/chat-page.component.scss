@@ -6,13 +6,19 @@
     -webkit-transform: translate3d(-50%, -50%, 0); 
     -moz-transform: translate3d(-50%, -50%, 0);  
     transform: translate3d(-50%, -50%, 0);
-    height: 600px; 
+    // height: 600px;
+    height: 80%; 
 
 }
 .right-chat-card{
     display: inline-block;
     background-color: rgba(82, 179, 217, 0.6);
     width: 60%;
-    height: 568px;
+    // height: 568px;
+    height: 100%;
+    padding: 10px;
     position: fixed;
+    .app-list-chat{
+        height: calc(100% - 20px);
+    }
 }

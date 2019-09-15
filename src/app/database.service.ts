@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from './models/user';
 import { Message } from './models/message';
 import { DataSnapshot } from '@angular/fire/database/interfaces';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,10 +40,29 @@ export class DatabaseService {
   updateMessage(data: string, mes: Message[]) {
     return this.db.database.ref(data).child("message").set(mes);
   }
-  // createUser(user: User): void {
-  //   user.message.message_id = this.db.createPushId();
-  //   this.db.list<User>("users").push(user).then(res =>{
-  //     console.log(res);
-  //   })
+  sendMessage(userId: number, targetUserId: number, mes: Message[]){
+    var ref = this.db.database.ref()
+                                    .child("users")
+                                      .child(userId.toString())
+                                        .child("message")
+                                          .child(targetUserId.toString());
+     return ref.set(mes);                                   
+  }
+  sendTargetMessage(userId: number, targetUserId: number, mes: Message[]){
+    var ref = this.db.database.ref()
+                                    .child("users")
+                                      .child(targetUserId.toString())
+                                        .child("message")
+                                          .child(userId.toString());
+     return ref.set(mes);                                   
+  }
+
+  // checkNickname(nickname: string){
+  //   var ref = this.db.database.ref().child("users");
+  //   return ref.orderByChild("nickname").equalTo(nickname).on("")
   // }
+  createUser(users: User[]): Promise<any> {
+     var ref = this.db.database.ref().child("users");
+     return ref.update(users);
+  }
 }

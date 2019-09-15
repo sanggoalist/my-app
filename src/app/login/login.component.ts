@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -48,24 +49,35 @@ export class LoginComponent implements OnInit {
         if (res.val() == null){
           this.openDialog("Wrong Nickname or Password");
           return;
-        } else if (res.val().length > 1){
-          this.openDialog("Error");
-          return;
         }
         else{
-          let user =  <User>res.val()[0];
-          console.log(user)
-          if (this.checkPassword(user, this.submitForm.value.password)){
-            if (this.cookieService.check("sang-app-chat")){
-              this.cookieService.delete("sang-app-chat");
-            }
-              var ob = {user_id: user.user_id}
-              this.cookieService.set("sang-app-chat", JSON.stringify(ob), 4, '/');
-            this.router.navigate(['/chat-page']);
+          let user = null;
+          if (res.val().length == undefined){
+            user =  <User>res.val();
+          }else{
+            res.val().forEach(element => {
+              if (element){
+               user =  <User>element;
+              }
+            });
           }
-          else
-          this.openDialog("Wrong Nickname or Password");
-          return;
+          if (user != null){
+            if (this.checkPassword(user, this.submitForm.value.password)){
+              if (this.cookieService.check("sang-app-chat")){
+                this.cookieService.delete("sang-app-chat");
+              }
+                var ob = {user_id: user.user_id}
+                this.cookieService.set("sang-app-chat", JSON.stringify(ob), 1, '/');
+              this.router.navigate(['/chat-page']);
+            }
+            else
+            this.openDialog("Wrong Nickname or Password");
+            return;
+          } else{
+            this.openDialog("Error");
+          }  
+
+
         }
     })
 

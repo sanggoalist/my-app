@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class ChatPageComponent implements OnInit, OnChanges {
   show = false;
   friendId = null;
+  userId = null;
   friend: User;
   userList: User[] = [];
   constructor(public databaseService: DatabaseService,
@@ -30,7 +31,7 @@ export class ChatPageComponent implements OnInit, OnChanges {
       this.openDialog("Please login again!");
       this.dialog.afterAllClosed.subscribe(res =>{
         this.spinnerService.hide();
-        this.router.navigate([""]);
+        this.router.navigate(["/login"]);
       })
       return;
     }
@@ -45,15 +46,19 @@ export class ChatPageComponent implements OnInit, OnChanges {
             this.userList.push(element)
           }
         });
+        this.userId = user.user_id;
         this.spinnerService.hide();
     })
   }
-  ngOnChanges(){
-    console.log("this change")
+  ngOnChanges(event){
+    console.log(event)
   }
   onCl(event){
     this.show = true;
     this.friend = this.userList.find(user => {return user.user_id === event;});
+  }
+  onFriendChange(event){
+    this.friend = event;
   }
   openDialog(mes: string): void {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
