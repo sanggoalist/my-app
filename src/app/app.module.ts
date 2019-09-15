@@ -41,6 +41,7 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
 import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
+import { SearchFriendComponent } from './search-friend/search-friend.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAYNkiwIZW2ZFPLfCk1WG4n_yeXoJ9CDLA',
@@ -64,7 +65,8 @@ export const firebaseConfig = {
     ListFriendComponent,
     ListChatComponent,
     ErrorModalComponent,
-    RegisterComponent
+    RegisterComponent,
+    SearchFriendComponent
   ],
   imports: [
     BrowserModule,
