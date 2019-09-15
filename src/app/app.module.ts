@@ -41,6 +41,15 @@ import { ErrorModalComponent } from './components/error-modal/error-modal.compon
 import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
+
+export const firebaseConfig = {
+  apiKey: 'AIzaSyAYNkiwIZW2ZFPLfCk1WG4n_yeXoJ9CDLA',
+  authDomain: 'my-chat-app-e320d.firebaseapp.com',
+  databaseURL: 'https://my-chat-app-e320d.firebaseio.com',
+  projectId: 'my-chat-app-e320d',
+  storageBucket: 'my-chat-app-e320d.appspot.com',
+  messagingSenderId: '443252937045'
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +68,8 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment["firebase"]),
+    // AngularFireModule.initializeApp(environment["firebase"]),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
