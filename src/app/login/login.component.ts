@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
 import { CookieService } from 'ngx-cookie-service';
+import { WrapperRes } from '../models/wrapperRes';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private isProcess = false;
+  isProcess = false;
   private isCorrect = false;
   submitted = false;
   hide = true;
@@ -38,24 +39,19 @@ export class LoginComponent implements OnInit {
     if (this.submitForm.invalid){
       return;
     }
-    // if (this.isClick){
-    //   this.isClick = false;
-    //   return;
-    // }
-    // this.isClick = true;
     this.isProcess = true;
     this.database.login(this.submitForm.value.nickname).then((res) =>{
       this.isProcess = false;
-        if (res.val() == null){
+        if (res.exportVal() == null){
           this.openDialog("Wrong Nickname or Password");
           return;
         }
-        else{
+        else{          
           let user = null;
-          if (res.val().length == undefined){
-            user =  <User>res.val();
+          if (res.exportVal().length == undefined){
+            user =  <User>res.exportVal()[Object.keys(res.exportVal())[0]];
           }else{
-            res.val().forEach(element => {
+            res.exportVal().forEach(element => {
               if (element){
                user =  <User>element;
               }
