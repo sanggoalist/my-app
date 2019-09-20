@@ -1,0 +1,144 @@
+.search-item-before{
+    text-align: left;
+    line-height: 50%;
+    height: 100%;
+
+    .search-image{
+        height: 100%;
+        display: inline-block; 
+        width: 15%;
+        vertical-align: middle;
+        border-radius: 50%;
+    }
+    .search-info{
+        padding-left: 5%;
+        position: relative;
+        height: 100%;
+        vertical-align: middle;
+        display: inline-block; 
+        width: 85%;
+        .search-name{
+            position: relative;
+            width: 60%;
+            height: 100%;
+            display: inline-block;
+            padding-right: 5px;
+            vertical-align: middle;
+            .search-display-name{
+                font-size: 14px;
+                height: 40%;
+                padding-bottom: 5%;
+            }
+            .search-nickname{
+                font-size: 10px;
+                height: 60%;
+            }
+        }
+        .search-action{
+            width: calc(20% - 5% - 5px);
+            height: 100%;
+            position: relative;
+            display: inline-block;
+            .add-icon-before{
+                position: relative;
+                display: inline-block;
+                color: gray;
+                // font-size: 10px;
+            }
+            .add-icon-after{
+                position: relative;
+                display: inline-block;
+                color: #00FF00;
+                // font-size: 10px;
+            }
+        }
+    }
+}
+.search-item-after{
+    visibility: hidden;
+    text-align: left;
+    line-height: 50%;
+    height: 100%;
+
+    .search-image{
+        height: 100%;
+        display: inline-block; 
+        width: 15%;
+        vertical-align: middle;
+        border-radius: 50%;
+    }
+    .search-info{
+        padding-left: 5%;
+        position: relative;
+        height: 100%;
+        vertical-align: middle;
+        display: inline-block; 
+        width: 85%;
+        .search-name{
+            position: relative;
+            width: 60%;
+            height: 100%;
+            display: inline-block;
+            padding-right: 5px;
+            vertical-align: middle;
+            .search-display-name{
+                font-size: 14px;
+                height: 40%;
+                padding-bottom: 5%;
+            }
+            .search-nickname{
+                font-size: 10px;
+                height: 60%;
+            }
+        }
+        .search-action{
+            width: calc(20% - 5% - 5px);
+            height: 100%;
+            position: relative;
+            display: inline-block;
+            .add-icon-before{
+                position: relative;
+                display: inline-block;
+                color: gray;
+                // font-size: 10px;
+            }
+            .add-icon-after{
+                position: relative;
+                display: inline-block;
+                color: #00FF00;
+                // font-size: 10px;
+            }
+        }
+    }
+}
+.option-item{
+    position: relative;
+    // pointer-events: none;
+    .add-text{
+        visibility: hidden;
+        height: 0px;
+    }
+}
+#is-friend{
+    pointer-events: none;
+}
+#not-friend{
+    pointer-events: visible;
+}
+.option-item:hover .item-child{
+
+    .search-item-before{
+        opacity: 0.1;
+    }
+    .add-text{
+            opacity: 1;
+            visibility: visible;
+            position: absolute;
+            height: 100%;
+            bottom: 50%;
+            left: 50%;
+            -webkit-transform: translate3d(-50%, 50%, 0); 
+            -moz-transform: translate3d(-50%, 50%, 0);  
+            transform: translate3d(-50%, 50%, 0);
+    }
+}

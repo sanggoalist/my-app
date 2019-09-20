@@ -5,4 +5,5 @@ export class Message{
     message?: string;
     user_id?: number;
     send_at?: string;
+    read?: boolean;
 }

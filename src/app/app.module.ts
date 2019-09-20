@@ -42,7 +42,17 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
 import { SearchFriendComponent } from './search-friend/search-friend.component';
-
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './redux/reducers';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { LocalStorageService } from './local-storage.service';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { RequestFriendComponent } from './request-friend/request-friend.component';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { HomePageComponent } from './home-page/home-page.component';
+import { FriendsComponent } from './friends/friends.component';
+import { ChatsComponent } from './chats/chats.component';
 export const firebaseConfig = {
   apiKey: 'AIzaSyAYNkiwIZW2ZFPLfCk1WG4n_yeXoJ9CDLA',
   authDomain: 'my-chat-app-e320d.firebaseapp.com',
@@ -66,7 +76,12 @@ export const firebaseConfig = {
     ListChatComponent,
     ErrorModalComponent,
     RegisterComponent,
-    SearchFriendComponent
+    SearchFriendComponent,
+    RequestFriendComponent,
+    SnackBarComponent,
+    HomePageComponent,
+    FriendsComponent,
+    ChatsComponent
   ],
   imports: [
     BrowserModule,
@@ -94,11 +109,15 @@ export const firebaseConfig = {
     MatIconModule,
     MatDialogModule,
     HttpClientModule,
+    MatAutocompleteModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
-    )
+    ),
+    StoreModule.forRoot(reducers),
+    StorageServiceModule,
+    MatSnackBarModule
   ],
-  providers: [UserService, DatabaseService, CookieService],
+  providers: [UserService, DatabaseService, CookieService, LocalStorageService],
   bootstrap: [AppComponent],
   entryComponents: [SpinnerOverlayComponent, ErrorModalComponent]
 })

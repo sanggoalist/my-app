@@ -7,7 +7,13 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
 import { CookieService } from 'ngx-cookie-service';
 import { WrapperRes } from '../models/wrapperRes';
-
+import { LocalStorageService } from '../local-storage.service';
+import { Mes } from '../models/mes';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../redux/reducers';
+import { MesssageMapChangeAction } from '../redux/actions/messageMap';
+import { FriendsChangeAction } from '../redux/actions/friends';
+import { MessagesChangeAction } from '../redux/actions/messages';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +29,9 @@ export class LoginComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, 
             private formBuilder: FormBuilder, private database: DatabaseService,
             public dialog: MatDialog,
-            private cookieService: CookieService) {
+            private cookieService: CookieService,
+            public localStore: LocalStorageService,
+            public store: Store<fromRoot.State>) {
   }
 
   ngOnInit() {
@@ -47,7 +55,7 @@ export class LoginComponent implements OnInit {
           return;
         }
         else{          
-          let user = null;
+          let user: User = null;
           if (res.exportVal().length == undefined){
             user =  <User>res.exportVal()[Object.keys(res.exportVal())[0]];
           }else{
@@ -64,7 +72,19 @@ export class LoginComponent implements OnInit {
               }
                 var ob = {user_id: user.user_id}
                 this.cookieService.set("sang-app-chat", JSON.stringify(ob), 1, '/');
-              this.router.navigate(['/chat-page']);
+                // this.database.getData<Mes>("users/"+user.user_id + "/mes").subscribe(res =>{
+                //   var map:Map<number,number> = new Map<number,number>();
+                //   res.forEach(r =>{
+                //     map.set(r.target_id, r.message_id);
+                //   });
+                //   this.store.dispatch(new MessagesChangeAction(map));
+                //   this.localStore.setItem("messageIdMap", res);
+                // })
+                // this.database.getData<number>("users/"+user.user_id + "/friends").subscribe(res =>{
+                //   this.localStore.setItem("friends",res);
+                //   this.store.dispatch(new FriendsChangeAction(res));
+                // });
+              this.router.navigate(['/home']);
             }
             else
             this.openDialog("Wrong Nickname or Password");

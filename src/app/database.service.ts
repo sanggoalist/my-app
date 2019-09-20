@@ -6,6 +6,9 @@ import { User } from './models/user';
 import { Message } from './models/message';
 import { DataSnapshot } from '@angular/fire/database/interfaces';
 import * as moment from 'moment';
+import { WrapperMessage } from './models/wrapperMessage';
+import { Mes } from './models/mes';
+import { Notifications } from './models/notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +19,11 @@ export class DatabaseService {
 
   getData<T> (data: string): Observable<T[]>{
     return  this.db.list<T>(data).valueChanges();
+  }
+
+  getList(messageId: string){
+    var ref = this.db.database.ref().child(messageId);
+    return ref;
   }
 
   saveData (person: Person): void{
@@ -40,14 +48,14 @@ export class DatabaseService {
   updateMessage(data: string, mes: Message[]) {
     return this.db.database.ref(data).child("message").set(mes);
   }
-  sendMessage(userId: number, targetUserId: number, mes: Message[]){
-    var ref = this.db.database.ref()
-                                    .child("users")
-                                      .child(userId.toString())
-                                        .child("message")
-                                          .child(targetUserId.toString());
-     return ref.set(mes);                                   
-  }
+  // sendMessage(userId: number, targetUserId: number, mes: Message[]){
+  //   var ref = this.db.database.ref()
+  //                                   .child("users")
+  //                                     .child(userId.toString())
+  //                                       .child("message")
+  //                                         .child(targetUserId.toString());
+  //    return ref.set(mes);                                   
+  // }
   sendTargetMessage(userId: number, targetUserId: number, mes: Message[]){
     var ref = this.db.database.ref()
                                     .child("users")
@@ -55,6 +63,23 @@ export class DatabaseService {
                                         .child("message")
                                           .child(userId.toString());
      return ref.set(mes);                                   
+  }
+
+  sendMessage(message: WrapperMessage, messageId: string){
+    var ref = this.db.database.ref()
+                                .child("messages")
+                                    .child(messageId);
+    return ref.push(message);
+  }
+
+  setMessageIdOnUser(userId: number, targetId: number, messageId: number){
+    var mes: Mes = {
+      message_id: messageId.toString(),
+      target_id: targetId
+    }
+    var ref = this.db.database.ref()
+                                    .child("users").child(userId.toString()).child("mes");
+    return ref.push(mes);
   }
 
   // checkNickname(nickname: string){
@@ -71,4 +96,28 @@ export class DatabaseService {
   getNextIndex() {
     return this.db.database.ref().child("users");
   }
+
+  getMessageList(userId: number, targetId: number){
+    var ref = this.db.database.ref().child("messages");
+    return ref.orderByChild("sender_id")
+              
+  }
+  searchFriend(text: string){
+    var ref = this.db.database.ref().child("info");
+    return ref.orderByChild("display_name").startAt(text).endAt(text + '\uf8ff');
+  }
+  addFriend(userId: number, friendList: Array<number>){
+    var ref = this.db.database.ref().child("users").child(userId.toString()).child("friends");
+    return ref.set(friendList);
+  }
+
+  addNotification(userId: number, notification: Notifications){
+    var ref = this.db.database.ref().child("users").child(userId.toString()).child("notifications");
+    return ref.push(notification);
+  }
+  removeNotification(userId: number,  notifications: Notifications[]){
+    var ref = this.db.database.ref().child("users").child(userId.toString()).child("notifications");
+    return ref.set(notifications);
+  }
+
 }

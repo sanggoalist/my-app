@@ -1,16 +1,16 @@
 <mat-list class="right-chat-list" #scrollMe infiniteScroll>
-        <div class="chat-list" *ngFor="let message of messagess" >
-                <div class="item-list">
-                  <div class="item-{{(message.user_id == user_id ? 'user': 'friend')}}">
-                      <div class="item-ripper"></div>
-                      <img *ngIf ="message.user_id != user_id" class="item-image" src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
-                      <div class="chat-item-{{(message.user_id == user_id ? 'user': 'friend')}}">
-                           {{message.message}} 
-                      </div>
-                      <img *ngIf ="message.user_id == user_id" class="item-image" src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+    <div class="chat-list" *ngFor="let message of messageses" >
+            <div class="item-list">
+              <div class="item-{{(message.sender_id == user_id ? 'user': 'friend')}}">
+                  <div class="item-ripper"></div>
+                  <img *ngIf ="message.sender_id != user_id" class="item-image" src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+                  <div class="chat-item-{{(message.sender_id == user_id ? 'user': 'friend')}}">
+                       {{message.message}} 
                   </div>
-                </div>
+                  <img *ngIf ="message.sender_id == user_id" class="item-image" src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
               </div>
+            </div>
+          </div>
 </mat-list>
 <mat-card class="chat-comment-card">
     <div class="comment-group">
