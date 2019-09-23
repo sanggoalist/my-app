@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
       // }
       // // this.spinnerService.hide();
     } else{
-      this.router.navigate(["/login"]);
+      // this.router.navigate(["/login"]);
     }
   }
   openDialog(mes: string, type: number): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DatabaseService } from '../database.service';
 import { SpinnerOverlayService } from '../service/spinner-overlay.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,7 +20,10 @@ import { MessageNoticeChangeAction } from '../redux/actions/messageNotice';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
-  styleUrls: ['./friends.component.scss']
+  styleUrls: ['./friends.component.scss'],
+  styles: [
+    `myFind: {opacity: 0.1;}`
+  ]
 })
 export class FriendsComponent implements OnInit {
 
@@ -29,6 +32,8 @@ export class FriendsComponent implements OnInit {
   messageIds: Map<number,string>;
   friendSelect;
   notices: Map<number,number> = new Map();
+  @Input()
+  ngStyle: { [klass: string]: any; }
   constructor(public databaseService: DatabaseService,
     private  spinnerService: SpinnerOverlayService,
     private cookieService: CookieService,
@@ -47,6 +52,15 @@ export class FriendsComponent implements OnInit {
                 return this.friends.includes(info.user_id) && info.user_id != user.user_id;
             });
           });
+          this.store.select(fromRoot.getFriendListForAccept).subscribe(friends =>{
+              this.friendInfos.forEach(friendInfo => {
+                  if (friends.includes(friendInfo.user_id)){
+                      friendInfo.waitingForFriend = true;
+                  }else{
+                    friendInfo.waitingForFriend = false;
+                  }
+              });
+        });
       });
       this.store.select(fromRoot.getMessages).subscribe(map =>{
         this.messageIds = map;

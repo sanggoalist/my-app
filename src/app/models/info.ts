@@ -3,4 +3,5 @@ export class Info{
     nickname?: string;
     user_id?: number;
     isFriend?: boolean;
+    waitingForFriend?: boolean;
 }

@@ -4,5 +4,6 @@ export interface Notifications{
     user_id?: number,
     waiting?: boolean,
     display_name?: string,
-    nickname?: string
+    nickname?: string,
+    message_id?: number
 }

@@ -70,20 +70,17 @@ export class LoginComponent implements OnInit {
               if (this.cookieService.check("sang-app-chat")){
                 this.cookieService.delete("sang-app-chat");
               }
-                var ob = {user_id: user.user_id}
+              var userInfo = null;
+              this.database.getList("info").once("value", info =>{
+                info.forEach(i =>{
+                  if (i.exportVal()["user_id"] == user.user_id){
+                    userInfo = i.exportVal()["display_name"];
+                  }
+                })
+
+              });
+                var ob = {user_id: user.user_id, display_name: userInfo}
                 this.cookieService.set("sang-app-chat", JSON.stringify(ob), 1, '/');
-                // this.database.getData<Mes>("users/"+user.user_id + "/mes").subscribe(res =>{
-                //   var map:Map<number,number> = new Map<number,number>();
-                //   res.forEach(r =>{
-                //     map.set(r.target_id, r.message_id);
-                //   });
-                //   this.store.dispatch(new MessagesChangeAction(map));
-                //   this.localStore.setItem("messageIdMap", res);
-                // })
-                // this.database.getData<number>("users/"+user.user_id + "/friends").subscribe(res =>{
-                //   this.localStore.setItem("friends",res);
-                //   this.store.dispatch(new FriendsChangeAction(res));
-                // });
               this.router.navigate(['/home']);
             }
             else

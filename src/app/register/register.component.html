@@ -13,7 +13,10 @@
                   <input formControlName="nickname" matInput placeholder="Nickname" required>
                   <mat-error *ngIf="submitted && submitForm.controls.nickname.errors">Nickname is required</mat-error>
                 </mat-form-field>
-              
+                <mat-form-field>
+                        <input formControlName="display_name" matInput placeholder="Display name" required>
+                        <mat-error *ngIf="submitted && submitForm.controls.display_name.errors">Display name is required</mat-error>
+                      </mat-form-field>             
                 <mat-form-field>
                   <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required>
                   <mat-error *ngIf="submitted && submitForm.controls.password.errors != null && submitForm.controls.password.errors.minlength != null">Password should have more than 6 characters</mat-error>

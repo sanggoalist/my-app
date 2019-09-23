@@ -9,6 +9,8 @@ import { User } from '../models/user';
 import { AuthItem } from '../models/authItem';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import * as moment from 'moment';
+import { Info } from '../models/info';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -24,16 +26,19 @@ export class RegisterComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, 
     private formBuilder: FormBuilder, private database: DatabaseService,
     public dialog: MatDialog,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    public localStore: LocalStorageService) { }
 
   ngOnInit() {
+    this.localStore.clear();
     this.database.getNextIndex().once("value", res =>{
         this.index = res.numChildren();
     });
     this.submitForm = this.formBuilder.group({
       nickname: ['',Validators.required],
       password: ['',[Validators.required, Validators.minLength(6)]],
-      repassword: ['',[Validators.required]]
+      repassword: ['',[Validators.required]],
+      display_name: ['',[Validators.required]]
     });
 
   }
@@ -51,17 +56,25 @@ export class RegisterComponent implements OnInit {
         }else{
             var nickname = this.submitForm.value.nickname;
             var password = this.submitForm.value.password;
+            var display_name = this.submitForm.value.display_name;
             var user: User = new User();
             user.auth = new AuthItem();
             user.auth.password = password;
             user.forbidden = 0;
-            user.friends = [0];
             user.nickname = nickname;
             user.role = 0;
             var m = moment.now();
             var userId = moment(m).unix();
             user.user_id = userId;
-            this.database.createUser(user).then(res =>{
+            var info: Info = {
+              display_name: display_name,
+              nickname: nickname,
+              user_id: userId
+            }
+            Promise.all([
+              this.database.createUser(user),
+              this.database.createInfo(info)
+            ]).then(res =>{
               this.isProcess = false;
                 this.openDialog('Success!!! The user is has been created!', 3);
                 this.dialog.afterAllClosed.subscribe(res =>{

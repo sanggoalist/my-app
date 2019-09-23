@@ -38,6 +38,7 @@
     background-color: red;
     cursor: pointer;
 }
+
 .red-notice{
     position: absolute;
     background-color: red;
@@ -48,4 +49,9 @@
     border-radius: 50%;
     left: 2%;
     top: 2%;
+}
+.friend-waiting{
+    position: absolute;
+    opacity: 1;
+    left: 25%;
 }

@@ -51,6 +51,12 @@
                 color: #00FF00;
                 // font-size: 10px;
             }
+            .add-icon-waiting{
+                position: relative;
+                display: inline-block;
+                color: rgba(240, 255, 0, 1);
+                // font-size: 10px;
+            }
         }
     }
 }
@@ -108,6 +114,12 @@
                 color: #00FF00;
                 // font-size: 10px;
             }
+            .add-icon-waiting{
+                position: relative;
+                display: inline-block;
+                color: rgba(240, 255, 0, 1);
+                // font-size: 10px;
+            }
         }
     }
 }
@@ -119,12 +131,16 @@
         height: 0px;
     }
 }
-#is-friend{
-    pointer-events: none;
+.add-icon-after:hover + .search-nickname{
+    background-color: red;
+
 }
-#not-friend{
-    pointer-events: visible;
-}
+// #is-friend{
+//     pointer-events: none;
+// }
+// #not-friend{
+//     pointer-events: visible;
+// }
 .option-item:hover .item-child{
 
     .search-item-before{

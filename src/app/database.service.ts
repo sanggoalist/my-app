@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { WrapperMessage } from './models/wrapperMessage';
 import { Mes } from './models/mes';
 import { Notifications } from './models/notifications';
+import { Info } from './models/info';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +94,10 @@ export class DatabaseService {
      var ref = this.db.database.ref().child("users").child(userId);
      return ref.set(user);
   }
+  createInfo(info: Info): Promise<any>{
+    var ref = this.db.database.ref().child("info").child(info.user_id.toString());
+    return ref.set(info);
+  }
   getNextIndex() {
     return this.db.database.ref().child("users");
   }
@@ -114,6 +119,10 @@ export class DatabaseService {
   addNotification(userId: number, notification: Notifications){
     var ref = this.db.database.ref().child("users").child(userId.toString()).child("notifications");
     return ref.push(notification);
+  }
+  addFriendForAccept(userId: number, friendId: number){
+    var ref = this.db.database.ref().child("users").child(userId.toString()).child("friendForAccepts");
+    return ref.push(friendId);
   }
   removeNotification(userId: number,  notifications: Notifications[]){
     var ref = this.db.database.ref().child("users").child(userId.toString()).child("notifications");

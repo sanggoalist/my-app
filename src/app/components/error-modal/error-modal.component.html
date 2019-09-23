@@ -1,6 +1,7 @@
 <h1 mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
   <p *ngIf = "data.code != 4">{{data.name}}</p>
+  <p *ngIf = "data.code == 4">{{data.notification.display_name}} is sending you a request!</p>
   <app-request-friend *ngIf = "data.code == 4" [notification] = "data.notification" [target_id] ="data.target_id"></app-request-friend>
   <!-- <mat-form-field>
     <input matInput [(ngModel)]="data.animal">

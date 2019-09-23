@@ -21,6 +21,7 @@ import { Message } from '../models/message';
 import { MessageFriendChangeAction } from '../redux/actions/message';
 import { WrapperMessage } from '../models/wrapperMessage';
 import { MessageNoticeChangeAction } from '../redux/actions/messageNotice';
+import { FriendListAcceptChangeAction } from '../redux/actions/friendListForAccept';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -29,6 +30,9 @@ import { MessageNoticeChangeAction } from '../redux/actions/messageNotice';
 export class HomePageComponent implements OnInit {
   messageIds: Map<number,string>;
   private friendId;
+  target_id;
+  notification: Notifications;
+  displayName;
   constructor(public databaseService: DatabaseService,
     private  spinnerService: SpinnerOverlayService,
     private cookieService: CookieService,
@@ -42,9 +46,8 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.localStore.removeItem("friendSelect");
     this.localStore.removeItem("messageSelect");
-    this.spinnerService.show();
     if (!this.cookieService.check("sang-app-chat")){
-      this.openDialog("Please login again!");
+      this.openDialog("Please login again!", 1);
       this.dialog.afterAllClosed.subscribe(res =>{
         this.spinnerService.hide();
         this.router.navigate(["/login"]);
@@ -53,7 +56,9 @@ export class HomePageComponent implements OnInit {
     }
     else
     {
+      this.spinnerService.show();
       var user = JSON.parse(this.cookieService.get("sang-app-chat"));
+      this.displayName = user.display_name;
       if (user != null) {
                 //Friends
                 this.databaseService.getData<number>("users/"+user.user_id + "/friends").subscribe(res =>{
@@ -114,12 +119,19 @@ export class HomePageComponent implements OnInit {
                     this.store.dispatch(new MessageFriendChangeAction(mess));
                   }
                 });
-                
+                //Check friend is waiting for accept
+                this.databaseService.getData<number>("users/"+user.user_id + "/friendForAccepts").subscribe(res =>{
+                    this.store.dispatch(new FriendListAcceptChangeAction(res));
+                });
+
 
                 this.databaseService.getData<Notifications>("users/"+user.user_id + "/notifications").subscribe(notifications =>{
                   console.log("Notifications has been changed");
                   notifications.forEach(notification =>{
                     if(notification.target_id == user.user_id){
+                      // 1 -- send request friend
+                      // 2 -- accept the request friend
+                      // 3 -- deacept the request friend
                       if (notification.type === 4 && notification.waiting){
                         var friendSelectId = this.localStore.getItem("friendSelect");
                             if (friendSelectId != notification.user_id){
@@ -133,20 +145,73 @@ export class HomePageComponent implements OnInit {
                               console.log(err)
                             });
                         }
+                        if (notification.type === 1 && !notification.waiting){
+                          this.target_id = notification.user_id;
+                          this.notification = notification;
+                          this.openDialog("Please accept the request", 4);
+                        }
+                        if (notification.type === 2){
+                          this.databaseService.getList("users/" + user.user_id + "/friendForAccepts").on("value", friends =>{
+                              var friendListForAccept = [];
+                              friends.forEach(friend =>{
+                                if (friend.exportVal() == notification.user_id){
+                                  friend.ref.remove();
+                                }else{
+                                  friendListForAccept.push(friend.exportVal());
+                                }
+                              });
+                              this.store.dispatch(new FriendListAcceptChangeAction(friendListForAccept));
+                          });
+                          notifications = notifications.filter(noti => {return noti != notification});
+                          this.databaseService.removeNotification(user.user_id, notifications).then(res =>{
+                            this.openSnackBar(notification.display_name +" is accepted your request!", "");
+                          }).catch(err =>{
+                            console.log(err)
+                          })
+                        }
+                        if (notification.type == 3){
+                          this.databaseService.getList("users/" + user.user_id + "/friendForAccepts").on("value", friends =>{
+                            var friendListForAccept = [];
+                            friends.forEach(friend =>{
+                              if (friend.exportVal() == notification.user_id){
+                                friend.ref.remove();
+                              }else{
+                                friendListForAccept.push(friend.exportVal());
+                              }
+                            });
+                            this.store.dispatch(new FriendListAcceptChangeAction(friendListForAccept));
+                        });
+                          this.databaseService.getList("users/" + user.user_id + "/friends").on("value", friends =>{
+                            friends.forEach(friend =>{
+                              if (friend.exportVal() == notification.user_id){
+                                friend.ref.remove();
+                              }
+                            });
+                          });
+                          this.openSnackBar(notification.display_name +" is not accepted your request!", "");
+                          notifications = notifications.filter(noti => {return noti != notification});
+                          this.databaseService.removeNotification(user.user_id, notifications).then(res =>{
+                            this.openSnackBar(notification.display_name +" is accepted your request!", "");
+                          }).catch(err =>{
+                            console.log(err)
+                          })                        
+                        }
+
                     }
                   });
                 });
+                this.spinnerService.hide();
       }
-      this.spinnerService.hide();
+      
     }
   }
-  openDialog(mes: string): void {
+  openDialog(mes: string, type: number): void {
     const dialogRef = this.dialog.open(ErrorModalComponent, {
       width: '250px',
-      data: {code: 1, name: mes}
+      data: {code: type, name: mes, target_id: this.target_id, notification: this.notification}
     });
-
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       console.log('The dialog was closed');
     });
   }

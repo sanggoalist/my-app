@@ -8,6 +8,7 @@ export interface State {
   messageId: number;
   waiting: boolean;
   friends: number[];
+  friendListForAccept: number[];
   messages: Map<number,string>;
   messageFriends: WrapperMessage[];
   friendSelect: number;
@@ -26,6 +27,7 @@ import * as fromMessageFriend from './message';
 import * as fromFriendSelect from './friendSelect';
 import * as fromMessageIdSelect from './messageIdSelect';
 import * as fromMessageNotice from './messageNotice';
+import * as fromFriendListForAccept from './friendListForAccept';
 import { Info } from 'src/app/models/info';
 import { Message } from 'src/app/models/message';
 import { WrapperMessage } from 'src/app/models/wrapperMessage';
@@ -42,7 +44,8 @@ export const reducers = {
   messageFriends: fromMessageFriend.reducer,
   friendSelect: fromFriendSelect.reducer,
   messageIdSelect: fromMessageIdSelect.reducer,
-  messageNotice: fromMessageNotice.reducer
+  messageNotice: fromMessageNotice.reducer,
+  friendListForAccept: fromFriendListForAccept.reducer
 
 }
 export const getAmountState = (state: State) => state.amount
@@ -68,3 +71,5 @@ export const getFriendSelect  = (state: State) => state.friendSelect
 export const getMessageIdSelect  = (state: State) => state.messageIdSelect
 
 export const getMessageNotice  = (state: State) => state.messageNotice
+
+export const getFriendListForAccept  = (state: State) => state.friendListForAccept
