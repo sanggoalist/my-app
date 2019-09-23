@@ -5,7 +5,7 @@ import { DialogData } from 'src/app/models/dialogData';
 @Component({
   selector: 'app-error-modal',
   templateUrl: './error-modal.component.html',
-  styleUrls: ['./error-modal.component.css']
+  styleUrls: ['./error-modal.component.scss']
 })
 export class ErrorModalComponent implements OnInit {
   title = '';
@@ -20,6 +20,8 @@ export class ErrorModalComponent implements OnInit {
       this.title = 'Nickname is used';
     } else if (this.data.code == 3){
       this.title = 'Successful Registration'
+    } else if (this.data.code == 4){
+      this.title = 'Friend Request';
     }
   }
 

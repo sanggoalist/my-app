@@ -1,1 +1,44 @@
-<p>search-friend works!</p>
+<div>
+    <form class="example-form">
+        <mat-form-field style="width: 100%">
+          <input type="text" placeholder="Search Friend" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <div class="search-list">
+            <mat-option class="option-item" id = "{{option.isFriend ? 'is-friend': 'not-friend'}}" (mouseenter) ="mouseEnter('div a')" (mouseleave) ="mouseLeave('div A')" *ngFor="let option of users | async" [value]="option.display_name">
+              <div class="item-child" (click) = "onEnter(option)">
+                  <div *ngIf ="!option.isFriend && !option.waitingForFriend" class="add-text">
+                      Add Friend
+                  </div>
+                  <div *ngIf ="option.isFriend && !option.waitingForFriend" style="color: brown;" class="add-text">
+                      Already be your friend!
+                      <!-- {{!option.isFriend ? 'Add Friend': 'Already be your friend!'}} -->
+                  </div>
+                  <div *ngIf ="option.waitingForFriend" style="color: rgba(240, 255, 0, 1);" class="add-text">
+                      Waiting for accept!
+                  </div>
+                <div class="search-item-before">
+                  <img class="search-image" matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
+                  <div class="search-info">
+                      <div class="search-name">
+                          <div class="search-display-name">
+                              {{option.display_name}}
+                          </div>
+                          <div class="search-nickname">
+                              {{option.nickname}}
+                          </div>  
+                      </div>
+                      <div class="search-action">
+                          <mat-icon class="add-icon-before" *ngIf = "!option.isFriend && !option.waitingForFriend">check_circle_outline</mat-icon>
+                          <mat-icon class="add-icon-after" *ngIf = "option.isFriend && !option.waitingForFriend">check_circle</mat-icon>
+                          <mat-icon class="add-icon-waiting" *ngIf = "option.waitingForFriend">access_time</mat-icon>
+                      </div>
+                  </div>
+                </div>
+              </div>  
+
+            </mat-option>
+          </div>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+</div>>

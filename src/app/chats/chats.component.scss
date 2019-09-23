@@ -1,0 +1,113 @@
+.right-chat-list{
+    /* max-height: 370px; */
+    // height: 460px;
+    height: 80%;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+.chat-comment-card{
+    height: 10%;
+    background-color: rgba(82, 179, 217, 0.6);
+}
+.comment-group{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    background-color: antiquewhite;
+    // height: 50px;
+    height: 100%;
+    border-radius: 5px;
+
+}
+.comment-area{
+    width: calc(100% - 56px);
+    max-height: 50px;
+    overflow: auto;
+    margin-left: 10px;
+    //     padding-top: 10px;
+    // padding-bottom: 10px;
+}
+.comment-button{
+    display: inherit;
+    margin: 0px;
+    padding-left: 9px;
+    cursor: pointer;
+    background-color: antiquewhite;
+    border: none;
+    align-content: center;
+    align-items: center;
+}
+.comment-button:hover{
+    .send-icon{
+        transform: rotate(-45deg);
+    }    
+}
+.chat-item-friend{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    border-radius: 25px;
+    background-color: rgba(77, 5, 232, 0.5);
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    /* max-width: 100px; */
+}
+.chat-item-user{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    border-radius: 25px;
+    background-color: rgba(123, 239, 178, 1);
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    /* max-width: 100px; */
+}
+.item-list{
+    display: block;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+    padding: 0;
+    position: relative;
+}
+.item-ripper{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    pointer-events: none;
+    overflow: hidden;
+}
+.item-friend{
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    box-sizing: border-box;
+    padding: 0 16px;
+    position: relative;
+    height: inherit;
+    margin-bottom: 10px;
+    // justify-content: flex-end;
+}
+.item-user{
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    box-sizing: border-box;
+    padding: 0 16px;
+    position: relative;
+    height: inherit;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+}
+.item-image{
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

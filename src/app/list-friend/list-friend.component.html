@@ -1,28 +1,19 @@
 <mat-card class= "left-chat-card">
     <mat-list class="left-chat-list">
-        <mat-list-item class="left-chat-list-item" *ngFor="let user of users;" (click) = "clickOnFriend($event, user.user_id)">
+        <mat-list-item class="left-chat-list-item" *ngFor="let user of infoList;" (click) = "clickOnFriend($event, user.user_id)">
             <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
-                <h3 matLine> {{user.nickname}} </h3>
+                <h3 matLine> {{user.display_name}} </h3>
                 <p matLine>
-                    <span> {{user.user_id}} </span>
+                    <span> {{user.nickname}} </span>
                 </p>
         </mat-list-item>
     </mat-list>
     <div class="left-footer">
-        <div style="height: 70%">
-
+        <div style="height: 70%; width: 100%">
+                <app-search-friend></app-search-friend>
         </div>
         <div class="logout-button">
             <button class="logout-btn" mat-raised-button color="primary" (click)="logoutHandle()" mat-button>Logout</button>
         </div>
     </div>
-    <!-- <mat-list class="left-chat-list-show" *ngIf = "show">
-        <mat-list-item class="left-chat-list-item" *ngFor="let user of users;" (click) = "clickOnFriend($event, user.user_id)">
-            <img matListAvatar src="https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg" alt="...">
-                <h3 matLine> {{user.nickname}} </h3>
-                <p matLine>
-                    <span> {{user.user_id}} </span>
-                </p>
-        </mat-list-item>
-    </mat-list> -->
 </mat-card>  
